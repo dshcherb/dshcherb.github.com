@@ -49,7 +49,7 @@ How does that help with creating virtual machines?
 # Virtual Machines in Unprivileged Containers
 
 * clone(2) or fork(2) system calls can be used to create new processes and exec family of system calls can be used to execute new binaries in unprivileged containers just fine and a QEMU binary falls into that category;
-* QEMU/KVM expects a few kernel modules to be loaded, mainly `kvm`, `kvm_intel` or `kvm_amd` and `tap`. Performance-wise, depending on your setup `vhost`, `vhost_net`, `vhost_scsi` and `vhost_vsock` modules. If VFIO needs to be used `vfio` and `vfio-pci` at least are also needed but this requires host sysfs access as well which is a bit more involved (you may also need to load and control a hardware device driver via its own character special files);
+* QEMU/KVM expects a few kernel modules to be loaded, mainly `kvm`, `kvm_intel` or `kvm_amd` and `tap`. Performance-wise, depending on your setup `vhost`, `vhost_net`, `vhost_scsi` and `vhost_vsock` modules. If VFIO needs to be used at least `vfio` and `vfio-pci` are also needed but this requires host sysfs access as well which is a bit more involved (you may also need to load and control a hardware device driver via its own character special files);
 * QEMU/KVM needs access to a number of character special files `/dev/kvm`, `/dev/net/tun`, `/dev/vhost-net`, `/dev/vhost-scsi`, `/dev/vhost-vsock`. For VFIO `/dev/vfio/vfio` and potentially other driver-specific character special files.
 * Libvirt daemon manages QEMU processes and they go through a daemonization procedure to stay running even if libvirtd exits. Libvirt uses some kernel functionality, including `bridge` module and cgroups;
 
