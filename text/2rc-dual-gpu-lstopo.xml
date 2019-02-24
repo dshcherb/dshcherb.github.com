@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topology SYSTEM "hwloc.dtd">
+<topology>
+  <object type="Machine" os_index="0" cpuset="0x0000ffff" complete_cpuset="0x0000ffff" online_cpuset="0x0000ffff" allowed_cpuset="0x0000ffff" nodeset="0x00000003" complete_nodeset="0x00000003" allowed_nodeset="0x00000003">
+    <page_type size="4096" count="0"/>
+    <page_type size="2097152" count="0"/>
+    <page_type size="1073741824" count="0"/>
+    <info name="DMIProductName" value="redacted"/>
+    <info name="DMIProductVersion" value="redacted"/>
+    <info name="DMIBoardVendor" value="Redacted"/>
+    <info name="DMIBoardName" value="redacted"/>
+    <info name="DMIBoardVersion" value="redacted"/>
+    <info name="DMIBoardAssetTag" value=""/>
+    <info name="DMIChassisVendor" value="Redacted"/>
+    <info name="DMIChassisType" value="17"/>
+    <info name="DMIChassisVersion" value=""/>
+    <info name="DMIChassisAssetTag" value=""/>
+    <info name="DMIBIOSVendor" value="Redacted"/>
+    <info name="DMIBIOSVersion" value="redacted"/>
+    <info name="DMIBIOSDate" value="xx/xx/xxxx"/>
+    <info name="DMISysVendor" value="Redacted"/>
+    <info name="Backend" value="Linux"/>
+    <info name="LinuxCgroup" value="/"/>
+    <info name="OSName" value="Linux"/>
+    <info name="OSRelease" value="4.15.0-45-generic"/>
+    <info name="OSVersion" value="#48-Ubuntu SMP Tue Jan 29 16:28:13 UTC 2019"/>
+    <info name="HostName" value="test-gpu-node"/>
+    <info name="Architecture" value="x86_64"/>
+    <info name="hwlocVersion" value="1.11.9"/>
+    <info name="ProcessName" value="lstopo"/>
+    <distances nbobjs="2" relative_depth="1" latency_base="10.000000">
+      <latency value="1.000000"/>
+      <latency value="2.100000"/>
+      <latency value="2.100000"/>
+      <latency value="1.000000"/>
+    </distances>
+    <object type="NUMANode" os_index="0" cpuset="0x000000ff" complete_cpuset="0x000000ff" online_cpuset="0x000000ff" allowed_cpuset="0x000000ff" nodeset="0x00000001" complete_nodeset="0x00000001" allowed_nodeset="0x00000001" local_memory="67136786432">
+      <page_type size="4096" count="16390817"/>
+      <page_type size="2097152" count="0"/>
+      <page_type size="1073741824" count="0"/>
+      <object type="Package" os_index="0" cpuset="0x000000ff" complete_cpuset="0x000000ff" online_cpuset="0x000000ff" allowed_cpuset="0x000000ff" nodeset="0x00000001" complete_nodeset="0x00000001" allowed_nodeset="0x00000001">
+        <info name="CPUVendor" value="GenuineIntel"/>
+        <info name="CPUFamilyNumber" value="6"/>
+        <info name="CPUModelNumber" value="63"/>
+        <info name="CPUModel" value="Intel(R) Xeon(R) CPU E5-2667 v3 @ 3.20GHz"/>
+        <info name="CPUStepping" value="2"/>
+        <object type="Cache" cpuset="0x000000ff" complete_cpuset="0x000000ff" online_cpuset="0x000000ff" allowed_cpuset="0x000000ff" nodeset="0x00000001" complete_nodeset="0x00000001" allowed_nodeset="0x00000001" cache_size="20971520" depth="3" cache_linesize="64" cache_associativity="20" cache_type="0">
+          <info name="Inclusive" value="1"/>
+          <object type="Cache" cpuset="0x00000001" complete_cpuset="0x00000001" online_cpuset="0x00000001" allowed_cpuset="0x00000001" nodeset="0x00000001" complete_nodeset="0x00000001" allowed_nodeset="0x00000001" cache_size="262144" depth="2" cache_linesize="64" cache_associativity="8" cache_type="0">
+            <info name="Inclusive" value="0"/>
+            <object type="Cache" cpuset="0x00000001" complete_cpuset="0x00000001" online_cpuset="0x00000001" allowed_cpuset="0x00000001" nodeset="0x00000001" complete_nodeset="0x00000001" allowed_nodeset="0x00000001" cache_size="32768" depth="1" cache_linesize="64" cache_associativity="8" cache_type="1">
+              <info name="Inclusive" value="0"/>
+              <object type="Cache" cpuset="0x00000001" complete_cpuset="0x00000001" online_cpuset="0x00000001" allowed_cpuset="0x00000001" nodeset="0x00000001" complete_nodeset="0x00000001" allowed_nodeset="0x00000001" cache_size="32768" depth="1" cache_linesize="64" cache_associativity="8" cache_type="2">
+                <info name="Inclusive" value="0"/>
+                <object type="Core" os_index="0" cpuset="0x00000001" complete_cpuset="0x00000001" online_cpuset="0x00000001" allowed_cpuset="0x00000001" nodeset="0x00000001" complete_nodeset="0x00000001" allowed_nodeset="0x00000001">
+                  <object type="PU" os_index="0" cpuset="0x00000001" complete_cpuset="0x00000001" online_cpuset="0x00000001" allowed_cpuset="0x00000001" nodeset="0x00000001" complete_nodeset="0x00000001" allowed_nodeset="0x00000001"/>
+                </object>
+              </object>
+            </object>
+          </object>
+          <object type="Cache" cpuset="0x00000002" complete_cpuset="0x00000002" online_cpuset="0x00000002" allowed_cpuset="0x00000002" nodeset="0x00000001" complete_nodeset="0x00000001" allowed_nodeset="0x00000001" cache_size="262144" depth="2" cache_linesize="64" cache_associativity="8" cache_type="0">
+            <info name="Inclusive" value="0"/>
+            <object type="Cache" cpuset="0x00000002" complete_cpuset="0x00000002" online_cpuset="0x00000002" allowed_cpuset="0x00000002" nodeset="0x00000001" complete_nodeset="0x00000001" allowed_nodeset="0x00000001" cache_size="32768" depth="1" cache_linesize="64" cache_associativity="8" cache_type="1">
+              <info name="Inclusive" value="0"/>
+              <object type="Cache" cpuset="0x00000002" complete_cpuset="0x00000002" online_cpuset="0x00000002" allowed_cpuset="0x00000002" nodeset="0x00000001" complete_nodeset="0x00000001" allowed_nodeset="0x00000001" cache_size="32768" depth="1" cache_linesize="64" cache_associativity="8" cache_type="2">
+                <info name="Inclusive" value="0"/>
+                <object type="Core" os_index="1" cpuset="0x00000002" complete_cpuset="0x00000002" online_cpuset="0x00000002" allowed_cpuset="0x00000002" nodeset="0x00000001" complete_nodeset="0x00000001" allowed_nodeset="0x00000001">
+                  <object type="PU" os_index="1" cpuset="0x00000002" complete_cpuset="0x00000002" online_cpuset="0x00000002" allowed_cpuset="0x00000002" nodeset="0x00000001" complete_nodeset="0x00000001" allowed_nodeset="0x00000001"/>
+                </object>
+              </object>
+            </object>
+          </object>
+          <object type="Cache" cpuset="0x00000004" complete_cpuset="0x00000004" online_cpuset="0x00000004" allowed_cpuset="0x00000004" nodeset="0x00000001" complete_nodeset="0x00000001" allowed_nodeset="0x00000001" cache_size="262144" depth="2" cache_linesize="64" cache_associativity="8" cache_type="0">
+            <info name="Inclusive" value="0"/>
+            <object type="Cache" cpuset="0x00000004" complete_cpuset="0x00000004" online_cpuset="0x00000004" allowed_cpuset="0x00000004" nodeset="0x00000001" complete_nodeset="0x00000001" allowed_nodeset="0x00000001" cache_size="32768" depth="1" cache_linesize="64" cache_associativity="8" cache_type="1">
+              <info name="Inclusive" value="0"/>
+              <object type="Cache" cpuset="0x00000004" complete_cpuset="0x00000004" online_cpuset="0x00000004" allowed_cpuset="0x00000004" nodeset="0x00000001" complete_nodeset="0x00000001" allowed_nodeset="0x00000001" cache_size="32768" depth="1" cache_linesize="64" cache_associativity="8" cache_type="2">
+                <info name="Inclusive" value="0"/>
+                <object type="Core" os_index="2" cpuset="0x00000004" complete_cpuset="0x00000004" online_cpuset="0x00000004" allowed_cpuset="0x00000004" nodeset="0x00000001" complete_nodeset="0x00000001" allowed_nodeset="0x00000001">
+                  <object type="PU" os_index="2" cpuset="0x00000004" complete_cpuset="0x00000004" online_cpuset="0x00000004" allowed_cpuset="0x00000004" nodeset="0x00000001" complete_nodeset="0x00000001" allowed_nodeset="0x00000001"/>
+                </object>
+              </object>
+            </object>
+          </object>
+          <object type="Cache" cpuset="0x00000008" complete_cpuset="0x00000008" online_cpuset="0x00000008" allowed_cpuset="0x00000008" nodeset="0x00000001" complete_nodeset="0x00000001" allowed_nodeset="0x00000001" cache_size="262144" depth="2" cache_linesize="64" cache_associativity="8" cache_type="0">
+            <info name="Inclusive" value="0"/>
+            <object type="Cache" cpuset="0x00000008" complete_cpuset="0x00000008" online_cpuset="0x00000008" allowed_cpuset="0x00000008" nodeset="0x00000001" complete_nodeset="0x00000001" allowed_nodeset="0x00000001" cache_size="32768" depth="1" cache_linesize="64" cache_associativity="8" cache_type="1">
+              <info name="Inclusive" value="0"/>
+              <object type="Cache" cpuset="0x00000008" complete_cpuset="0x00000008" online_cpuset="0x00000008" allowed_cpuset="0x00000008" nodeset="0x00000001" complete_nodeset="0x00000001" allowed_nodeset="0x00000001" cache_size="32768" depth="1" cache_linesize="64" cache_associativity="8" cache_type="2">
+                <info name="Inclusive" value="0"/>
+                <object type="Core" os_index="3" cpuset="0x00000008" complete_cpuset="0x00000008" online_cpuset="0x00000008" allowed_cpuset="0x00000008" nodeset="0x00000001" complete_nodeset="0x00000001" allowed_nodeset="0x00000001">
+                  <object type="PU" os_index="3" cpuset="0x00000008" complete_cpuset="0x00000008" online_cpuset="0x00000008" allowed_cpuset="0x00000008" nodeset="0x00000001" complete_nodeset="0x00000001" allowed_nodeset="0x00000001"/>
+                </object>
+              </object>
+            </object>
+          </object>
+          <object type="Cache" cpuset="0x00000010" complete_cpuset="0x00000010" online_cpuset="0x00000010" allowed_cpuset="0x00000010" nodeset="0x00000001" complete_nodeset="0x00000001" allowed_nodeset="0x00000001" cache_size="262144" depth="2" cache_linesize="64" cache_associativity="8" cache_type="0">
+            <info name="Inclusive" value="0"/>
+            <object type="Cache" cpuset="0x00000010" complete_cpuset="0x00000010" online_cpuset="0x00000010" allowed_cpuset="0x00000010" nodeset="0x00000001" complete_nodeset="0x00000001" allowed_nodeset="0x00000001" cache_size="32768" depth="1" cache_linesize="64" cache_associativity="8" cache_type="1">
+              <info name="Inclusive" value="0"/>
+              <object type="Cache" cpuset="0x00000010" complete_cpuset="0x00000010" online_cpuset="0x00000010" allowed_cpuset="0x00000010" nodeset="0x00000001" complete_nodeset="0x00000001" allowed_nodeset="0x00000001" cache_size="32768" depth="1" cache_linesize="64" cache_associativity="8" cache_type="2">
+                <info name="Inclusive" value="0"/>
+                <object type="Core" os_index="4" cpuset="0x00000010" complete_cpuset="0x00000010" online_cpuset="0x00000010" allowed_cpuset="0x00000010" nodeset="0x00000001" complete_nodeset="0x00000001" allowed_nodeset="0x00000001">
+                  <object type="PU" os_index="4" cpuset="0x00000010" complete_cpuset="0x00000010" online_cpuset="0x00000010" allowed_cpuset="0x00000010" nodeset="0x00000001" complete_nodeset="0x00000001" allowed_nodeset="0x00000001"/>
+                </object>
+              </object>
+            </object>
+          </object>
+          <object type="Cache" cpuset="0x00000020" complete_cpuset="0x00000020" online_cpuset="0x00000020" allowed_cpuset="0x00000020" nodeset="0x00000001" complete_nodeset="0x00000001" allowed_nodeset="0x00000001" cache_size="262144" depth="2" cache_linesize="64" cache_associativity="8" cache_type="0">
+            <info name="Inclusive" value="0"/>
+            <object type="Cache" cpuset="0x00000020" complete_cpuset="0x00000020" online_cpuset="0x00000020" allowed_cpuset="0x00000020" nodeset="0x00000001" complete_nodeset="0x00000001" allowed_nodeset="0x00000001" cache_size="32768" depth="1" cache_linesize="64" cache_associativity="8" cache_type="1">
+              <info name="Inclusive" value="0"/>
+              <object type="Cache" cpuset="0x00000020" complete_cpuset="0x00000020" online_cpuset="0x00000020" allowed_cpuset="0x00000020" nodeset="0x00000001" complete_nodeset="0x00000001" allowed_nodeset="0x00000001" cache_size="32768" depth="1" cache_linesize="64" cache_associativity="8" cache_type="2">
+                <info name="Inclusive" value="0"/>
+                <object type="Core" os_index="5" cpuset="0x00000020" complete_cpuset="0x00000020" online_cpuset="0x00000020" allowed_cpuset="0x00000020" nodeset="0x00000001" complete_nodeset="0x00000001" allowed_nodeset="0x00000001">
+                  <object type="PU" os_index="5" cpuset="0x00000020" complete_cpuset="0x00000020" online_cpuset="0x00000020" allowed_cpuset="0x00000020" nodeset="0x00000001" complete_nodeset="0x00000001" allowed_nodeset="0x00000001"/>
+                </object>
+              </object>
+            </object>
+          </object>
+          <object type="Cache" cpuset="0x00000040" complete_cpuset="0x00000040" online_cpuset="0x00000040" allowed_cpuset="0x00000040" nodeset="0x00000001" complete_nodeset="0x00000001" allowed_nodeset="0x00000001" cache_size="262144" depth="2" cache_linesize="64" cache_associativity="8" cache_type="0">
+            <info name="Inclusive" value="0"/>
+            <object type="Cache" cpuset="0x00000040" complete_cpuset="0x00000040" online_cpuset="0x00000040" allowed_cpuset="0x00000040" nodeset="0x00000001" complete_nodeset="0x00000001" allowed_nodeset="0x00000001" cache_size="32768" depth="1" cache_linesize="64" cache_associativity="8" cache_type="1">
+              <info name="Inclusive" value="0"/>
+              <object type="Cache" cpuset="0x00000040" complete_cpuset="0x00000040" online_cpuset="0x00000040" allowed_cpuset="0x00000040" nodeset="0x00000001" complete_nodeset="0x00000001" allowed_nodeset="0x00000001" cache_size="32768" depth="1" cache_linesize="64" cache_associativity="8" cache_type="2">
+                <info name="Inclusive" value="0"/>
+                <object type="Core" os_index="6" cpuset="0x00000040" complete_cpuset="0x00000040" online_cpuset="0x00000040" allowed_cpuset="0x00000040" nodeset="0x00000001" complete_nodeset="0x00000001" allowed_nodeset="0x00000001">
+                  <object type="PU" os_index="6" cpuset="0x00000040" complete_cpuset="0x00000040" online_cpuset="0x00000040" allowed_cpuset="0x00000040" nodeset="0x00000001" complete_nodeset="0x00000001" allowed_nodeset="0x00000001"/>
+                </object>
+              </object>
+            </object>
+          </object>
+          <object type="Cache" cpuset="0x00000080" complete_cpuset="0x00000080" online_cpuset="0x00000080" allowed_cpuset="0x00000080" nodeset="0x00000001" complete_nodeset="0x00000001" allowed_nodeset="0x00000001" cache_size="262144" depth="2" cache_linesize="64" cache_associativity="8" cache_type="0">
+            <info name="Inclusive" value="0"/>
+            <object type="Cache" cpuset="0x00000080" complete_cpuset="0x00000080" online_cpuset="0x00000080" allowed_cpuset="0x00000080" nodeset="0x00000001" complete_nodeset="0x00000001" allowed_nodeset="0x00000001" cache_size="32768" depth="1" cache_linesize="64" cache_associativity="8" cache_type="1">
+              <info name="Inclusive" value="0"/>
+              <object type="Cache" cpuset="0x00000080" complete_cpuset="0x00000080" online_cpuset="0x00000080" allowed_cpuset="0x00000080" nodeset="0x00000001" complete_nodeset="0x00000001" allowed_nodeset="0x00000001" cache_size="32768" depth="1" cache_linesize="64" cache_associativity="8" cache_type="2">
+                <info name="Inclusive" value="0"/>
+                <object type="Core" os_index="7" cpuset="0x00000080" complete_cpuset="0x00000080" online_cpuset="0x00000080" allowed_cpuset="0x00000080" nodeset="0x00000001" complete_nodeset="0x00000001" allowed_nodeset="0x00000001">
+                  <object type="PU" os_index="7" cpuset="0x00000080" complete_cpuset="0x00000080" online_cpuset="0x00000080" allowed_cpuset="0x00000080" nodeset="0x00000001" complete_nodeset="0x00000001" allowed_nodeset="0x00000001"/>
+                </object>
+              </object>
+            </object>
+          </object>
+        </object>
+      </object>
+      <object type="Bridge" os_index="0" bridge_type="0-1" depth="0" bridge_pci="0000:[00-0a]">
+        <object type="Bridge" os_index="16" name="Intel Corporation Xeon E7 v3/Xeon E5 v3/Core i7 PCI Express Root Port 1" bridge_type="1-1" depth="1" bridge_pci="0000:[01-01]" pci_busid="0000:00:01.0" pci_type="0604 [8086:2f02] [0000:0000] 02" pci_link_speed="0.000000">
+          <info name="PCIVendor" value="Intel Corporation"/>
+          <info name="PCIDevice" value="Xeon E7 v3/Xeon E5 v3/Core i7 PCI Express Root Port 1"/>
+          <object type="PCIDev" os_index="4096" name="LSI Logic / Symbios Logic SAS3008 PCI-Express Fusion-MPT SAS-3" pci_busid="0000:01:00.0" pci_type="0107 [1000:0097] [1000:3090] 02" pci_link_speed="0.000000">
+            <info name="PCIVendor" value="LSI Logic / Symbios Logic"/>
+            <info name="PCIDevice" value="SAS3008 PCI-Express Fusion-MPT SAS-3"/>
+            <info name="PCISlot" value="0"/>
+            <object type="OSDev" name="sda" osdev_type="0">
+              <info name="LinuxDeviceID" value="8:0"/>
+              <info name="Vendor" value="HGST"/>
+              <info name="Model" value="HUSMM1680ASS204"/>
+              <info name="Revision" value="C2D0"/>
+              <info name="SerialNumber" value="5000cca04fad6a10"/>
+              <info name="Type" value="Disk"/>
+            </object>
+          </object>
+        </object>
+        <object type="Bridge" os_index="32" name="Intel Corporation Xeon E7 v3/Xeon E5 v3/Core i7 PCI Express Root Port 2" bridge_type="1-1" depth="1" bridge_pci="0000:[02-02]" pci_busid="0000:00:02.0" pci_type="0604 [8086:2f04] [0000:0000] 02" pci_link_speed="0.000000">
+          <info name="PCIVendor" value="Intel Corporation"/>
+          <info name="PCIDevice" value="Xeon E7 v3/Xeon E5 v3/Core i7 PCI Express Root Port 2"/>
+          <object type="PCIDev" os_index="8192" name="Intel Corporation I350 Gigabit Network Connection" pci_busid="0000:02:00.0" pci_type="0200 [8086:1521] [19e5:d10c] 01" pci_link_speed="0.000000">
+            <info name="PCIVendor" value="Intel Corporation"/>
+            <info name="PCIDevice" value="I350 Gigabit Network Connection"/>
+            <info name="PCISlot" value="0-2"/>
+            <object type="OSDev" name="enp2s0f0" osdev_type="2">
+              <info name="Address" value="24:4c:07:54:27:f2"/>
+            </object>
+          </object>
+          <object type="PCIDev" os_index="8193" name="Intel Corporation I350 Gigabit Network Connection" pci_busid="0000:02:00.1" pci_type="0200 [8086:1521] [19e5:d10c] 01" pci_link_speed="0.000000">
+            <info name="PCIVendor" value="Intel Corporation"/>
+            <info name="PCIDevice" value="I350 Gigabit Network Connection"/>
+            <info name="PCISlot" value="0-2"/>
+            <object type="OSDev" name="enp2s0f1" osdev_type="2">
+              <info name="Address" value="24:4c:07:54:27:f3"/>
+            </object>
+          </object>
+        </object>
+        <object type="Bridge" os_index="48" name="Intel Corporation Xeon E7 v3/Xeon E5 v3/Core i7 PCI Express Root Port 3" bridge_type="1-1" depth="1" bridge_pci="0000:[04-07]" pci_busid="0000:00:03.0" pci_type="0604 [8086:2f08] [0000:0000] 02" pci_link_speed="0.000000">
+          <info name="PCIVendor" value="Intel Corporation"/>
+          <info name="PCIDevice" value="Xeon E7 v3/Xeon E5 v3/Core i7 PCI Express Root Port 3"/>
+          <object type="Bridge" os_index="16384" name="PLX Technology, Inc. PEX 8747 48-Lane, 5-Port PCI Express Gen 3 (8.0 GT/s) Switch" bridge_type="1-1" depth="2" bridge_pci="0000:[05-07]" pci_busid="0000:04:00.0" pci_type="0604 [10b5:8747] [0000:0000] ca" pci_link_speed="0.000000">
+            <info name="PCIVendor" value="PLX Technology, Inc."/>
+            <info name="PCIDevice" value="PEX 8747 48-Lane, 5-Port PCI Express Gen 3 (8.0 GT/s) Switch"/>
+            <info name="PCISlot" value="0-4"/>
+            <object type="Bridge" os_index="20608" name="PLX Technology, Inc. PEX 8747 48-Lane, 5-Port PCI Express Gen 3 (8.0 GT/s) Switch" bridge_type="1-1" depth="3" bridge_pci="0000:[06-06]" pci_busid="0000:05:08.0" pci_type="0604 [10b5:8747] [0000:0000] ca" pci_link_speed="0.000000">
+              <info name="PCIVendor" value="PLX Technology, Inc."/>
+              <info name="PCIDevice" value="PEX 8747 48-Lane, 5-Port PCI Express Gen 3 (8.0 GT/s) Switch"/>
+              <object type="PCIDev" os_index="24576" name="NVIDIA Corporation GK210GL [Tesla K80]" pci_busid="0000:06:00.0" pci_type="0302 [10de:102d] [10de:106c] a1" pci_link_speed="0.000000">
+                <info name="PCIVendor" value="NVIDIA Corporation"/>
+                <info name="PCIDevice" value="GK210GL [Tesla K80]"/>
+                <object type="OSDev" name="renderD128" osdev_type="1"/>
+                <object type="OSDev" name="card1" osdev_type="1"/>
+              </object>
+            </object>
+            <object type="Bridge" os_index="20736" name="PLX Technology, Inc. PEX 8747 48-Lane, 5-Port PCI Express Gen 3 (8.0 GT/s) Switch" bridge_type="1-1" depth="3" bridge_pci="0000:[07-07]" pci_busid="0000:05:10.0" pci_type="0604 [10b5:8747] [0000:0000] ca" pci_link_speed="0.000000">
+              <info name="PCIVendor" value="PLX Technology, Inc."/>
+              <info name="PCIDevice" value="PEX 8747 48-Lane, 5-Port PCI Express Gen 3 (8.0 GT/s) Switch"/>
+              <object type="PCIDev" os_index="28672" name="NVIDIA Corporation GK210GL [Tesla K80]" pci_busid="0000:07:00.0" pci_type="0302 [10de:102d] [10de:106c] a1" pci_link_speed="0.000000">
+                <info name="PCIVendor" value="NVIDIA Corporation"/>
+                <info name="PCIDevice" value="GK210GL [Tesla K80]"/>
+                <object type="OSDev" name="renderD129" osdev_type="1"/>
+                <object type="OSDev" name="card2" osdev_type="1"/>
+              </object>
+            </object>
+          </object>
+        </object>
+        <object type="PCIDev" os_index="276" name="Intel Corporation C610/X99 series chipset sSATA Controller [AHCI mode]" pci_busid="0000:00:11.4" pci_type="0106 [8086:8d62] [19e5:2063] 05" pci_link_speed="0.000000">
+          <info name="PCIVendor" value="Intel Corporation"/>
+          <info name="PCIDevice" value="C610/X99 series chipset sSATA Controller [AHCI mode]"/>
+        </object>
+        <object type="Bridge" os_index="450" name="Intel Corporation C610/X99 series chipset PCI Express Root Port #3" bridge_type="1-1" depth="1" bridge_pci="0000:[09-09]" pci_busid="0000:00:1c.2" pci_type="0604 [8086:8d14] [0000:0000] d5" pci_link_speed="0.000000">
+          <info name="PCIVendor" value="Intel Corporation"/>
+          <info name="PCIDevice" value="C610/X99 series chipset PCI Express Root Port #3"/>
+          <object type="PCIDev" os_index="36864" name="Redacted Technologies Co., Ltd. Hi1710 [iBMC Intelligent Management system chip w/VGA support]" pci_busid="0000:09:00.0" pci_type="0300 [19e5:1711] [0000:0000] 01" pci_link_speed="0.000000">
+            <info name="PCIVendor" value="Redacted Technologies Co., Ltd."/>
+            <info name="PCIDevice" value="Hi1710 [iBMC Intelligent Management system chip w/VGA support]"/>
+            <object type="OSDev" name="controlD64" osdev_type="1"/>
+            <object type="OSDev" name="card0" osdev_type="1"/>
+          </object>
+        </object>
+        <object type="PCIDev" os_index="498" name="Intel Corporation C610/X99 series chipset 6-Port SATA Controller [AHCI mode]" pci_busid="0000:00:1f.2" pci_type="0106 [8086:8d02] [19e5:2063] 05" pci_link_speed="0.000000">
+          <info name="PCIVendor" value="Intel Corporation"/>
+          <info name="PCIDevice" value="C610/X99 series chipset 6-Port SATA Controller [AHCI mode]"/>
+        </object>
+      </object>
+    </object>
+    <object type="NUMANode" os_index="1" cpuset="0x0000ff00" complete_cpuset="0x0000ff00" online_cpuset="0x0000ff00" allowed_cpuset="0x0000ff00" nodeset="0x00000002" complete_nodeset="0x00000002" allowed_nodeset="0x00000002" local_memory="67643580416">
+      <page_type size="4096" count="16514546"/>
+      <page_type size="2097152" count="0"/>
+      <page_type size="1073741824" count="0"/>
+      <object type="Package" os_index="1" cpuset="0x0000ff00" complete_cpuset="0x0000ff00" online_cpuset="0x0000ff00" allowed_cpuset="0x0000ff00" nodeset="0x00000002" complete_nodeset="0x00000002" allowed_nodeset="0x00000002">
+        <info name="CPUVendor" value="GenuineIntel"/>
+        <info name="CPUFamilyNumber" value="6"/>
+        <info name="CPUModelNumber" value="63"/>
+        <info name="CPUModel" value="Intel(R) Xeon(R) CPU E5-2667 v3 @ 3.20GHz"/>
+        <info name="CPUStepping" value="2"/>
+        <object type="Cache" cpuset="0x0000ff00" complete_cpuset="0x0000ff00" online_cpuset="0x0000ff00" allowed_cpuset="0x0000ff00" nodeset="0x00000002" complete_nodeset="0x00000002" allowed_nodeset="0x00000002" cache_size="20971520" depth="3" cache_linesize="64" cache_associativity="20" cache_type="0">
+          <info name="Inclusive" value="1"/>
+          <object type="Cache" cpuset="0x00000100" complete_cpuset="0x00000100" online_cpuset="0x00000100" allowed_cpuset="0x00000100" nodeset="0x00000002" complete_nodeset="0x00000002" allowed_nodeset="0x00000002" cache_size="262144" depth="2" cache_linesize="64" cache_associativity="8" cache_type="0">
+            <info name="Inclusive" value="0"/>
+            <object type="Cache" cpuset="0x00000100" complete_cpuset="0x00000100" online_cpuset="0x00000100" allowed_cpuset="0x00000100" nodeset="0x00000002" complete_nodeset="0x00000002" allowed_nodeset="0x00000002" cache_size="32768" depth="1" cache_linesize="64" cache_associativity="8" cache_type="1">
+              <info name="Inclusive" value="0"/>
+              <object type="Cache" cpuset="0x00000100" complete_cpuset="0x00000100" online_cpuset="0x00000100" allowed_cpuset="0x00000100" nodeset="0x00000002" complete_nodeset="0x00000002" allowed_nodeset="0x00000002" cache_size="32768" depth="1" cache_linesize="64" cache_associativity="8" cache_type="2">
+                <info name="Inclusive" value="0"/>
+                <object type="Core" os_index="0" cpuset="0x00000100" complete_cpuset="0x00000100" online_cpuset="0x00000100" allowed_cpuset="0x00000100" nodeset="0x00000002" complete_nodeset="0x00000002" allowed_nodeset="0x00000002">
+                  <object type="PU" os_index="8" cpuset="0x00000100" complete_cpuset="0x00000100" online_cpuset="0x00000100" allowed_cpuset="0x00000100" nodeset="0x00000002" complete_nodeset="0x00000002" allowed_nodeset="0x00000002"/>
+                </object>
+              </object>
+            </object>
+          </object>
+          <object type="Cache" cpuset="0x00000200" complete_cpuset="0x00000200" online_cpuset="0x00000200" allowed_cpuset="0x00000200" nodeset="0x00000002" complete_nodeset="0x00000002" allowed_nodeset="0x00000002" cache_size="262144" depth="2" cache_linesize="64" cache_associativity="8" cache_type="0">
+            <info name="Inclusive" value="0"/>
+            <object type="Cache" cpuset="0x00000200" complete_cpuset="0x00000200" online_cpuset="0x00000200" allowed_cpuset="0x00000200" nodeset="0x00000002" complete_nodeset="0x00000002" allowed_nodeset="0x00000002" cache_size="32768" depth="1" cache_linesize="64" cache_associativity="8" cache_type="1">
+              <info name="Inclusive" value="0"/>
+              <object type="Cache" cpuset="0x00000200" complete_cpuset="0x00000200" online_cpuset="0x00000200" allowed_cpuset="0x00000200" nodeset="0x00000002" complete_nodeset="0x00000002" allowed_nodeset="0x00000002" cache_size="32768" depth="1" cache_linesize="64" cache_associativity="8" cache_type="2">
+                <info name="Inclusive" value="0"/>
+                <object type="Core" os_index="1" cpuset="0x00000200" complete_cpuset="0x00000200" online_cpuset="0x00000200" allowed_cpuset="0x00000200" nodeset="0x00000002" complete_nodeset="0x00000002" allowed_nodeset="0x00000002">
+                  <object type="PU" os_index="9" cpuset="0x00000200" complete_cpuset="0x00000200" online_cpuset="0x00000200" allowed_cpuset="0x00000200" nodeset="0x00000002" complete_nodeset="0x00000002" allowed_nodeset="0x00000002"/>
+                </object>
+              </object>
+            </object>
+          </object>
+          <object type="Cache" cpuset="0x00000400" complete_cpuset="0x00000400" online_cpuset="0x00000400" allowed_cpuset="0x00000400" nodeset="0x00000002" complete_nodeset="0x00000002" allowed_nodeset="0x00000002" cache_size="262144" depth="2" cache_linesize="64" cache_associativity="8" cache_type="0">
+            <info name="Inclusive" value="0"/>
+            <object type="Cache" cpuset="0x00000400" complete_cpuset="0x00000400" online_cpuset="0x00000400" allowed_cpuset="0x00000400" nodeset="0x00000002" complete_nodeset="0x00000002" allowed_nodeset="0x00000002" cache_size="32768" depth="1" cache_linesize="64" cache_associativity="8" cache_type="1">
+              <info name="Inclusive" value="0"/>
+              <object type="Cache" cpuset="0x00000400" complete_cpuset="0x00000400" online_cpuset="0x00000400" allowed_cpuset="0x00000400" nodeset="0x00000002" complete_nodeset="0x00000002" allowed_nodeset="0x00000002" cache_size="32768" depth="1" cache_linesize="64" cache_associativity="8" cache_type="2">
+                <info name="Inclusive" value="0"/>
+                <object type="Core" os_index="2" cpuset="0x00000400" complete_cpuset="0x00000400" online_cpuset="0x00000400" allowed_cpuset="0x00000400" nodeset="0x00000002" complete_nodeset="0x00000002" allowed_nodeset="0x00000002">
+                  <object type="PU" os_index="10" cpuset="0x00000400" complete_cpuset="0x00000400" online_cpuset="0x00000400" allowed_cpuset="0x00000400" nodeset="0x00000002" complete_nodeset="0x00000002" allowed_nodeset="0x00000002"/>
+                </object>
+              </object>
+            </object>
+          </object>
+          <object type="Cache" cpuset="0x00000800" complete_cpuset="0x00000800" online_cpuset="0x00000800" allowed_cpuset="0x00000800" nodeset="0x00000002" complete_nodeset="0x00000002" allowed_nodeset="0x00000002" cache_size="262144" depth="2" cache_linesize="64" cache_associativity="8" cache_type="0">
+            <info name="Inclusive" value="0"/>
+            <object type="Cache" cpuset="0x00000800" complete_cpuset="0x00000800" online_cpuset="0x00000800" allowed_cpuset="0x00000800" nodeset="0x00000002" complete_nodeset="0x00000002" allowed_nodeset="0x00000002" cache_size="32768" depth="1" cache_linesize="64" cache_associativity="8" cache_type="1">
+              <info name="Inclusive" value="0"/>
+              <object type="Cache" cpuset="0x00000800" complete_cpuset="0x00000800" online_cpuset="0x00000800" allowed_cpuset="0x00000800" nodeset="0x00000002" complete_nodeset="0x00000002" allowed_nodeset="0x00000002" cache_size="32768" depth="1" cache_linesize="64" cache_associativity="8" cache_type="2">
+                <info name="Inclusive" value="0"/>
+                <object type="Core" os_index="3" cpuset="0x00000800" complete_cpuset="0x00000800" online_cpuset="0x00000800" allowed_cpuset="0x00000800" nodeset="0x00000002" complete_nodeset="0x00000002" allowed_nodeset="0x00000002">
+                  <object type="PU" os_index="11" cpuset="0x00000800" complete_cpuset="0x00000800" online_cpuset="0x00000800" allowed_cpuset="0x00000800" nodeset="0x00000002" complete_nodeset="0x00000002" allowed_nodeset="0x00000002"/>
+                </object>
+              </object>
+            </object>
+          </object>
+          <object type="Cache" cpuset="0x00001000" complete_cpuset="0x00001000" online_cpuset="0x00001000" allowed_cpuset="0x00001000" nodeset="0x00000002" complete_nodeset="0x00000002" allowed_nodeset="0x00000002" cache_size="262144" depth="2" cache_linesize="64" cache_associativity="8" cache_type="0">
+            <info name="Inclusive" value="0"/>
+            <object type="Cache" cpuset="0x00001000" complete_cpuset="0x00001000" online_cpuset="0x00001000" allowed_cpuset="0x00001000" nodeset="0x00000002" complete_nodeset="0x00000002" allowed_nodeset="0x00000002" cache_size="32768" depth="1" cache_linesize="64" cache_associativity="8" cache_type="1">
+              <info name="Inclusive" value="0"/>
+              <object type="Cache" cpuset="0x00001000" complete_cpuset="0x00001000" online_cpuset="0x00001000" allowed_cpuset="0x00001000" nodeset="0x00000002" complete_nodeset="0x00000002" allowed_nodeset="0x00000002" cache_size="32768" depth="1" cache_linesize="64" cache_associativity="8" cache_type="2">
+                <info name="Inclusive" value="0"/>
+                <object type="Core" os_index="4" cpuset="0x00001000" complete_cpuset="0x00001000" online_cpuset="0x00001000" allowed_cpuset="0x00001000" nodeset="0x00000002" complete_nodeset="0x00000002" allowed_nodeset="0x00000002">
+                  <object type="PU" os_index="12" cpuset="0x00001000" complete_cpuset="0x00001000" online_cpuset="0x00001000" allowed_cpuset="0x00001000" nodeset="0x00000002" complete_nodeset="0x00000002" allowed_nodeset="0x00000002"/>
+                </object>
+              </object>
+            </object>
+          </object>
+          <object type="Cache" cpuset="0x00002000" complete_cpuset="0x00002000" online_cpuset="0x00002000" allowed_cpuset="0x00002000" nodeset="0x00000002" complete_nodeset="0x00000002" allowed_nodeset="0x00000002" cache_size="262144" depth="2" cache_linesize="64" cache_associativity="8" cache_type="0">
+            <info name="Inclusive" value="0"/>
+            <object type="Cache" cpuset="0x00002000" complete_cpuset="0x00002000" online_cpuset="0x00002000" allowed_cpuset="0x00002000" nodeset="0x00000002" complete_nodeset="0x00000002" allowed_nodeset="0x00000002" cache_size="32768" depth="1" cache_linesize="64" cache_associativity="8" cache_type="1">
+              <info name="Inclusive" value="0"/>
+              <object type="Cache" cpuset="0x00002000" complete_cpuset="0x00002000" online_cpuset="0x00002000" allowed_cpuset="0x00002000" nodeset="0x00000002" complete_nodeset="0x00000002" allowed_nodeset="0x00000002" cache_size="32768" depth="1" cache_linesize="64" cache_associativity="8" cache_type="2">
+                <info name="Inclusive" value="0"/>
+                <object type="Core" os_index="5" cpuset="0x00002000" complete_cpuset="0x00002000" online_cpuset="0x00002000" allowed_cpuset="0x00002000" nodeset="0x00000002" complete_nodeset="0x00000002" allowed_nodeset="0x00000002">
+                  <object type="PU" os_index="13" cpuset="0x00002000" complete_cpuset="0x00002000" online_cpuset="0x00002000" allowed_cpuset="0x00002000" nodeset="0x00000002" complete_nodeset="0x00000002" allowed_nodeset="0x00000002"/>
+                </object>
+              </object>
+            </object>
+          </object>
+          <object type="Cache" cpuset="0x00004000" complete_cpuset="0x00004000" online_cpuset="0x00004000" allowed_cpuset="0x00004000" nodeset="0x00000002" complete_nodeset="0x00000002" allowed_nodeset="0x00000002" cache_size="262144" depth="2" cache_linesize="64" cache_associativity="8" cache_type="0">
+            <info name="Inclusive" value="0"/>
+            <object type="Cache" cpuset="0x00004000" complete_cpuset="0x00004000" online_cpuset="0x00004000" allowed_cpuset="0x00004000" nodeset="0x00000002" complete_nodeset="0x00000002" allowed_nodeset="0x00000002" cache_size="32768" depth="1" cache_linesize="64" cache_associativity="8" cache_type="1">
+              <info name="Inclusive" value="0"/>
+              <object type="Cache" cpuset="0x00004000" complete_cpuset="0x00004000" online_cpuset="0x00004000" allowed_cpuset="0x00004000" nodeset="0x00000002" complete_nodeset="0x00000002" allowed_nodeset="0x00000002" cache_size="32768" depth="1" cache_linesize="64" cache_associativity="8" cache_type="2">
+                <info name="Inclusive" value="0"/>
+                <object type="Core" os_index="6" cpuset="0x00004000" complete_cpuset="0x00004000" online_cpuset="0x00004000" allowed_cpuset="0x00004000" nodeset="0x00000002" complete_nodeset="0x00000002" allowed_nodeset="0x00000002">
+                  <object type="PU" os_index="14" cpuset="0x00004000" complete_cpuset="0x00004000" online_cpuset="0x00004000" allowed_cpuset="0x00004000" nodeset="0x00000002" complete_nodeset="0x00000002" allowed_nodeset="0x00000002"/>
+                </object>
+              </object>
+            </object>
+          </object>
+          <object type="Cache" cpuset="0x00008000" complete_cpuset="0x00008000" online_cpuset="0x00008000" allowed_cpuset="0x00008000" nodeset="0x00000002" complete_nodeset="0x00000002" allowed_nodeset="0x00000002" cache_size="262144" depth="2" cache_linesize="64" cache_associativity="8" cache_type="0">
+            <info name="Inclusive" value="0"/>
+            <object type="Cache" cpuset="0x00008000" complete_cpuset="0x00008000" online_cpuset="0x00008000" allowed_cpuset="0x00008000" nodeset="0x00000002" complete_nodeset="0x00000002" allowed_nodeset="0x00000002" cache_size="32768" depth="1" cache_linesize="64" cache_associativity="8" cache_type="1">
+              <info name="Inclusive" value="0"/>
+              <object type="Cache" cpuset="0x00008000" complete_cpuset="0x00008000" online_cpuset="0x00008000" allowed_cpuset="0x00008000" nodeset="0x00000002" complete_nodeset="0x00000002" allowed_nodeset="0x00000002" cache_size="32768" depth="1" cache_linesize="64" cache_associativity="8" cache_type="2">
+                <info name="Inclusive" value="0"/>
+                <object type="Core" os_index="7" cpuset="0x00008000" complete_cpuset="0x00008000" online_cpuset="0x00008000" allowed_cpuset="0x00008000" nodeset="0x00000002" complete_nodeset="0x00000002" allowed_nodeset="0x00000002">
+                  <object type="PU" os_index="15" cpuset="0x00008000" complete_cpuset="0x00008000" online_cpuset="0x00008000" allowed_cpuset="0x00008000" nodeset="0x00000002" complete_nodeset="0x00000002" allowed_nodeset="0x00000002"/>
+                </object>
+              </object>
+            </object>
+          </object>
+        </object>
+      </object>
+      <object type="Bridge" os_index="2" bridge_type="0-1" depth="0" bridge_pci="0000:[80-85]">
+        <object type="Bridge" os_index="524304" name="Intel Corporation Xeon E7 v3/Xeon E5 v3/Core i7 PCI Express Root Port 1" bridge_type="1-1" depth="1" bridge_pci="0000:[81-81]" pci_busid="0000:80:01.0" pci_type="0604 [8086:2f02] [0000:0000] 02" pci_link_speed="0.000000">
+          <info name="PCIVendor" value="Intel Corporation"/>
+          <info name="PCIDevice" value="Xeon E7 v3/Xeon E5 v3/Core i7 PCI Express Root Port 1"/>
+          <object type="PCIDev" os_index="528384" name="Mellanox Technologies MT27500 Family [ConnectX-3]" pci_busid="0000:81:00.0" pci_type="0280 [15b3:1003] [15b3:0051] 00" pci_link_speed="0.000000">
+            <info name="PCIVendor" value="Mellanox Technologies"/>
+            <info name="PCIDevice" value="MT27500 Family [ConnectX-3]"/>
+            <info name="PCISlot" value="0-5"/>
+            <object type="OSDev" name="mlx4_0" osdev_type="3">
+              <info name="NodeGUID" value="dead:beef:dead:beef"/>
+              <info name="SysImageGUID" value="dead:beef:dead:beef"/>
+              <info name="Port1State" value="1"/>
+              <info name="Port1LID" value="0x0"/>
+              <info name="Port1LMC" value="0"/>
+              <info name="Port1GID0" value="fe80:0000:0000:0000:7cfe:9003:0018:e741"/>
+            </object>
+          </object>
+        </object>
+        <object type="Bridge" os_index="524336" name="Intel Corporation Xeon E7 v3/Xeon E5 v3/Core i7 PCI Express Root Port 3" bridge_type="1-1" depth="1" bridge_pci="0000:[82-85]" pci_busid="0000:80:03.0" pci_type="0604 [8086:2f08] [0000:0000] 02" pci_link_speed="0.000000">
+          <info name="PCIVendor" value="Intel Corporation"/>
+          <info name="PCIDevice" value="Xeon E7 v3/Xeon E5 v3/Core i7 PCI Express Root Port 3"/>
+          <object type="Bridge" os_index="532480" name="PLX Technology, Inc. PEX 8747 48-Lane, 5-Port PCI Express Gen 3 (8.0 GT/s) Switch" bridge_type="1-1" depth="2" bridge_pci="0000:[83-85]" pci_busid="0000:82:00.0" pci_type="0604 [10b5:8747] [0000:0000] ca" pci_link_speed="0.000000">
+            <info name="PCIVendor" value="PLX Technology, Inc."/>
+            <info name="PCIDevice" value="PEX 8747 48-Lane, 5-Port PCI Express Gen 3 (8.0 GT/s) Switch"/>
+            <info name="PCISlot" value="0-6"/>
+            <object type="Bridge" os_index="536704" name="PLX Technology, Inc. PEX 8747 48-Lane, 5-Port PCI Express Gen 3 (8.0 GT/s) Switch" bridge_type="1-1" depth="3" bridge_pci="0000:[84-84]" pci_busid="0000:83:08.0" pci_type="0604 [10b5:8747] [0000:0000] ca" pci_link_speed="0.000000">
+              <info name="PCIVendor" value="PLX Technology, Inc."/>
+              <info name="PCIDevice" value="PEX 8747 48-Lane, 5-Port PCI Express Gen 3 (8.0 GT/s) Switch"/>
+              <object type="PCIDev" os_index="540672" name="NVIDIA Corporation GK210GL [Tesla K80]" pci_busid="0000:84:00.0" pci_type="0302 [10de:102d] [10de:106c] a1" pci_link_speed="0.000000">
+                <info name="PCIVendor" value="NVIDIA Corporation"/>
+                <info name="PCIDevice" value="GK210GL [Tesla K80]"/>
+                <object type="OSDev" name="card3" osdev_type="1"/>
+                <object type="OSDev" name="renderD130" osdev_type="1"/>
+              </object>
+            </object>
+            <object type="Bridge" os_index="536832" name="PLX Technology, Inc. PEX 8747 48-Lane, 5-Port PCI Express Gen 3 (8.0 GT/s) Switch" bridge_type="1-1" depth="3" bridge_pci="0000:[85-85]" pci_busid="0000:83:10.0" pci_type="0604 [10b5:8747] [0000:0000] ca" pci_link_speed="0.000000">
+              <info name="PCIVendor" value="PLX Technology, Inc."/>
+              <info name="PCIDevice" value="PEX 8747 48-Lane, 5-Port PCI Express Gen 3 (8.0 GT/s) Switch"/>
+              <object type="PCIDev" os_index="544768" name="NVIDIA Corporation GK210GL [Tesla K80]" pci_busid="0000:85:00.0" pci_type="0302 [10de:102d] [10de:106c] a1" pci_link_speed="0.000000">
+                <info name="PCIVendor" value="NVIDIA Corporation"/>
+                <info name="PCIDevice" value="GK210GL [Tesla K80]"/>
+                <object type="OSDev" name="card4" osdev_type="1"/>
+                <object type="OSDev" name="renderD131" osdev_type="1"/>
+              </object>
+            </object>
+          </object>
+        </object>
+      </object>
+    </object>
+  </object>
+</topology>
+

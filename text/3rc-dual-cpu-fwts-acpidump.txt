@@ -72,8 +72,8 @@ XSDT @ 6cad60c8 (276 bytes)
 FACS @ 6d234080 (64 bytes)
 ----
 [000h 0000   4]                    Signature : "FACS"
-[004h 0004   4]                       Length : 00000040
-[008h 0008   4]           Hardware Signature : 00000081
+[004h 0004   4]                       Length : deadbeef
+[008h 0008   4]           Hardware Signature : deadbeef
 [00Ch 0012   4]    32 Firmware Waking Vector : 00000000
 [010h 0016   4]                  Global Lock : 00000000
 [014h 0020   4]        Flags (decoded below) : 00000000
@@ -109,8 +109,8 @@ FACP @ 6cb18708 (276 bytes)
 [018h 0024   4]                 Oem Revision : xxxxxxxx
 [01Ch 0028   4]              Asl Compiler ID : "INTL"
 [020h 0032   4]        Asl Compiler Revision : 20091013
-[024h 0036   4]                 FACS Address : 6D234080
-[028h 0040   4]                 DSDT Address : 6CAD6278
+[024h 0036   4]                 FACS Address : deadbeef
+[028h 0040   4]                 DSDT Address : deadbeef
 [02Ch 0044   1]                        Model : 00
 [02Dh 0045   1]                   PM Profile : 04 [Enterprise Server]
 [02Eh 0046   2]                SCI Interrupt : 0009
@@ -4853,7 +4853,7 @@ BERT @ 6cbc1e90 (48 bytes)
 [01Ch 0028   4]              Asl Compiler ID : "INTL"
 [020h 0032   4]        Asl Compiler Revision : 00000001
 [024h 0036   4]     Boot Error Region Length : 00008000
-[028h 0040   8]    Boot Error Region Address : 000000006C7DA018
+[028h 0040   8]    Boot Error Region Address : 00000000deadbeef
 
 ERST @ 6cbc1ec0 (560 bytes)
 ----

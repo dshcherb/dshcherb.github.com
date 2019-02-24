@@ -11,7 +11,7 @@ The purpose of this post is to illustrate the need for gathering and interpretin
 
 # Problem Statement
 
-There are use-cases for servers in which they form a base for complex networking setups in the telecommunications world. Specifically, network designs include usage of SR-IOV-capable NICs or SmartNICs for accelerating packet processing using specialized hardware in VNFs placed into virtual machines. A virtual machine hosting a VNF will typically need to be pinned to a CPU located closer to the PCIe network device it intends to use to avoid penalties associated with accessing a PCIe device over an inter-processor link (called “QPI” or “UPI” in Intel-based systems).
+There are use-cases for servers in which they form a base for complex networking setups in the telecommunications world. Specifically, network designs include usage of SR-IOV-capable NICs or SmartNICs for accelerating packet processing using specialized hardware in VNFs placed into virtual machines. A virtual machine hosting a VNF will typically need to be pinned to a CPU located closer to the PCIe network device it intends to use to avoid penalties associated with accessing a PCIe device over an inter-processor link (called “QPI” or “UPI” in Intel-based systems). Other use-cases include HPC involving GPU processing where data has to be copied between memory of PCIe devices.
 
 For example, some servers have multi-root-complex designs while not being blade servers; likewise, they do not rely on [non-transparent bridging (NTB)](https://docs.broadcom.com/docs/12353428) technology. Instead, they rely on a firmware-level technique to hide multiple root complexes from the operating system kernel (described below). There are servers which use such designs that have firmware-level limitations as they do not expose proximity information for PCIe devices attached to different CPUs as shown in the respective section below. As a result, it is not possible to schedule workloads with PCIe to NUMA node affinity in mind.
 
@@ -28,7 +28,13 @@ There are no standard restrictions on the ID ranges (using powers of 2 is common
 
 Multi-processor systems have inter-CPU links which are used for both inter-node system memory transfers and system to device/device to system memory transfers which introduces affinity of PCIe devices to CPUs. Inter-CPU links are called QPI or UPI (newer) on Intel-based servers and are a vendor-specific standard (not PCIe compatible in terms of switching). This prevents direct peer-to-peer communication of PCIe devices and traversal of an inter-CPU link incurs additional overhead for Device-to-Host-to-Device communication as an OS driver needs to handle this by performing transfers to system memory from one device first and then to the target device.
 
-Modern NUMA systems which implement ACPI normally (ask your vendor) describe the physical topology of a server via ACPI _PXM (proximity) objects associated with devices. This information is interpreted by the Linux kernel during enumeration and device nodes present in sysfs have a numa_node field exposed as a result (e.g. /sys/devices/pci0000:de/0000:ad:be.e/numa_node).  In the OpenStack case [this is used](https://blueprints.launchpad.net/nova/+spec/input-output-based-numa-scheduling), for example, by Libvirt and Nova with Nova providing NUMA-aware scheduling not only from the memory perspective but also for PCIe devices that are passed through to virtual machines which is quite important for VNFs, GPU workloads and other applications requiring low-latency PCIe device access or peer-to-peer PCIe device communication.
+Modern NUMA systems which implement ACPI normally (ask your vendor) describe the physical topology of a server via ACPI _PXM (proximity) objects associated with devices (see "6.2.14 _PXM (Proximity)" in [the ACPI specification](https://uefi.org/sites/default/files/resources/ACPI_6_2.pdf)). This information is interpreted by the Linux kernel during enumeration and device nodes present in sysfs have a numa_node field exposed as a result (e.g. /sys/devices/pci0000:de/0000:ad:be.e/numa_node).  In the OpenStack case [this is used](https://blueprints.launchpad.net/nova/+spec/input-output-based-numa-scheduling), for example, by Libvirt and Nova with Nova providing NUMA-aware scheduling not only from the memory perspective but also for PCIe devices that are passed through to virtual machines which is quite important for VNFs, GPU workloads and other applications requiring low-latency PCIe device access or peer-to-peer PCIe device communication.
+
+There is also a useful ACPI table called SLIT (System Locality Distance Information Table) which describes relative distance between proximity domains (also referred to as "system localities", see "5.2.17 System Locality Distance Information Table"). The number of proximity domains is exposed as "Number of System Localities".
+
+The maximum number of proximity domains is also reported in the Maximum System Characteristics Table (MSCT) as a 4-byte field (see 5.2.19). Interestingly, it is stored as maximum proximity domains minus one as the specification notes so it is better to check the source code of a tool you use to dump this table: if it does not modify this field, a value of 1 would mean that you have 2 proximity domains.
+
+> Maximum Number of Proximity Domains indicates the maximum number of Proximity Domains ever possible in the system. The number reported in this field is (maximum domains – 1). For example if there are 0x10000 possible domains in the system, this field would report 0xFFFF.
 
 # Summary of Communication Types
 
@@ -53,7 +59,7 @@ In order to better understand workload placement on a given server, some analysi
 
 ## Vendor Documentation Example
 
-Vendor documentation typically contains block diagrams of target systems. The block diagram below represents important information about affinity of certain devices to CPUs for a particular server model (vendor name omitted on purpose):
+Vendor documentation typically contains block diagrams of target systems. The <a href="{{site.baseurl}}/drawings/3-rc-2u-server-block-diagram.png">block diagram<a/> below represents important information about affinity of certain devices to CPUs for a particular server model (vendor name is omitted on purpose):
 
 <img src="{{site.baseurl}}/drawings/3-rc-2u-server-block-diagram.png">
 
@@ -92,10 +98,21 @@ As can be seen, hwloc shows that from the software perspective all 3 root comple
 
 <img src="{{site.baseurl}}/text/3rc-dual-cpu-fwts-lstopo.svg">
 
+The maximum proximity domains value stored in MSCT is equal to 1 which means that there are 2 proximity domains in total:
+
 <a href="{{site.baseurl}}/text/3rc-dual-cpu-fwts-acpidump.txt">`sudo fwts acpidump -` output<a/>
 {% highlight bash %}
 {% raw %}
 Max Proximity Domains : 00000001
+{% endraw %}
+{% endhighlight bash %}
+
+The number of system localities represented in the SLIT table is 2 which is consistent with MSCT:
+{% highlight bash %}
+{% raw %}
+[024h 0036   8]                   Localities : 0000000000000002
+[02Ch 0044   2]                 Locality   0 : 0A 15
+[02Eh 0046   2]                 Locality   1 : 15 0A
 {% endraw %}
 {% endhighlight bash %}
 
@@ -156,10 +173,117 @@ Inferred PCIe root complex mapping:
 
 ## Conclusion
 
-For this particular server, there is no way to find out the association of PCIe devices with NUMA nodes and information represented in node_node sysfs entries will not be useful for applications such as libvirt or Nova. For this particular server build this problem is not going to be critical because there is one 4-port network card which has the correct affinity with CPU1 and pinning workloads to CPU1 will be appropriate. However, in other builds, where there may be network cards attached to CPU1 and CPU2, this will be problematic as it will not be possible to pin a workload to a correct CPU based on PCIe device affinity based on information retrievable via sysfs.
+For this particular server, there is no way to programmatically find out the association of PCIe devices with NUMA nodes and information represented in node_node sysfs entries will not be useful for applications such as libvirt or Nova. For this particular server build this problem is not going to be critical because there is one 4-port network card which has the correct affinity with CPU1 and pinning workloads to CPU1 will be appropriate. However, in other builds, where there may be network cards attached to CPU1 and CPU2, this will be problematic as it will not be possible to pin a workload to a correct CPU based on PCIe device affinity based on information retrievable via sysfs.
 
-A system with proper location information available would look as follows from the hwloc perspective:
+This information is very valuable for real-world large-scale projects at the hardware selection phase. Even if it is possible to fix the exposed ACPI information, operationally, a large firmware update can be problematic with the downtime it incurs.
 
-<img src="{{site.baseurl}}/drawings/2rc-server-block-diagram-proper-hwloc-info.png">
+# Comparison to a Different System
 
-This information is very valuable for real-world large-scale projects at the hardware selection phase.
+In comparison, a different server system with 2 CPU sockets and root complexes does not report the maximum amount of proximity domains in MSCT, however, it does so in SLIT and also provides the necessary PXM information for PCIe devices. Specifically, this system has two GPU PCIe cards each of which has 2 GPUs connected via an on-card PCIe switch (2 cards show up as 4 PCIe devices as a result) and they are attached to two different root complexes which is important if data is to be copied between GPUs.
+
+<a href="{{site.baseurl}}/text/2rc-server-2-gpu-block-diagram-proper-hwloc-info.svg">lstopo output (svg)<a/>
+
+<img src="{{site.baseurl}}/text/2rc-server-2-gpu-block-diagram-proper-hwloc-info.svg">
+
+<a href="{{site.baseurl}}/text/2rc-dual-gpu-fwts-output.txt">`sudo fwts acpidump -` output<a/>
+{% highlight bash %}
+{% raw %}
+[024h 0036   8]                   Localities : 0000000000000002
+[02Ch 0044   2]                 Locality   0 : 0A 15
+[02Eh 0046   2]                 Locality   1 : 15 0A
+{% endraw %}
+{% endhighlight bash %}
+
+<a href="{{site.baseurl}}/text/2rc-dual-gpu-lstopo.xml">`lstopo --of xml` output<a/>
+
+{% highlight xml %}
+{% raw %}
+<object type="Bridge" os_index="48" name="Intel Corporation Xeon E7 v3/Xeon E5 v3/Core i7 PCI Express Root Port 3" bridge_type="1-1" depth="1" bridge_pci="0000:[04-07]" pci_busid="0000:00:03.0" pci_type="0604 [8086:2f08] [0000:0000] 02" pci_link_speed="0.000000">
+  <info name="PCIVendor" value="Intel Corporation"/>
+  <info name="PCIDevice" value="Xeon E7 v3/Xeon E5 v3/Core i7 PCI Express Root Port 3"/>
+  <object type="Bridge" os_index="16384" name="PLX Technology, Inc. PEX 8747 48-Lane, 5-Port PCI Express Gen 3 (8.0 GT/s) Switch" bridge_type="1-1" depth="2" bridge_pci="0000:[05-07]" pci_busid="0000:04:00.0" pci_type="0604 [10b5:8747] [0000:0000] ca" pci_link_speed="0.000000">
+    <info name="PCIVendor" value="PLX Technology, Inc."/>
+    <info name="PCIDevice" value="PEX 8747 48-Lane, 5-Port PCI Express Gen 3 (8.0 GT/s) Switch"/>
+    <info name="PCISlot" value="0-4"/>
+    <object type="Bridge" os_index="20608" name="PLX Technology, Inc. PEX 8747 48-Lane, 5-Port PCI Express Gen 3 (8.0 GT/s) Switch" bridge_type="1-1" depth="3" bridge_pci="0000:[06-06]" pci_busid="0000:05:08.0" pci_type="0604 [10b5:8747] [0000:0000] ca" pci_link_speed="0.000000">
+      <info name="PCIVendor" value="PLX Technology, Inc."/>
+      <info name="PCIDevice" value="PEX 8747 48-Lane, 5-Port PCI Express Gen 3 (8.0 GT/s) Switch"/>
+      <object type="PCIDev" os_index="24576" name="NVIDIA Corporation GK210GL [Tesla K80]" pci_busid="0000:06:00.0" pci_type="0302 [10de:102d] [10de:106c] a1" pci_link_speed="0.000000">
+        <info name="PCIVendor" value="NVIDIA Corporation"/>
+        <info name="PCIDevice" value="GK210GL [Tesla K80]"/>
+        <object type="OSDev" name="renderD128" osdev_type="1"/>
+        <object type="OSDev" name="card1" osdev_type="1"/>
+      </object>
+    </object>
+    <object type="Bridge" os_index="20736" name="PLX Technology, Inc. PEX 8747 48-Lane, 5-Port PCI Express Gen 3 (8.0 GT/s) Switch" bridge_type="1-1" depth="3" bridge_pci="0000:[07-07]" pci_busid="0000:05:10.0" pci_type="0604 [10b5:8747] [0000:0000] ca" pci_link_speed="0.000000">
+      <info name="PCIVendor" value="PLX Technology, Inc."/>
+      <info name="PCIDevice" value="PEX 8747 48-Lane, 5-Port PCI Express Gen 3 (8.0 GT/s) Switch"/>
+      <object type="PCIDev" os_index="28672" name="NVIDIA Corporation GK210GL [Tesla K80]" pci_busid="0000:07:00.0" pci_type="0302 [10de:102d] [10de:106c] a1" pci_link_speed="0.000000">
+        <info name="PCIVendor" value="NVIDIA Corporation"/>
+        <info name="PCIDevice" value="GK210GL [Tesla K80]"/>
+        <object type="OSDev" name="renderD129" osdev_type="1"/>
+        <object type="OSDev" name="card2" osdev_type="1"/>
+      </object>
+    </object>
+  </object>
+</object>
+{% endraw %}
+{% endhighlight xml %}
+
+{% highlight xml %}
+{% raw %}
+<object type="Bridge" os_index="532480" name="PLX Technology, Inc. PEX 8747 48-Lane, 5-Port PCI Express Gen 3 (8.0 GT/s) Switch" bridge_type="1-1" depth="2" bridge_pci="0000:[83-85]" pci_busid="0000:82:00.0" pci_type="0604 [10b5:8747] [0000:0000] ca" pci_link_speed="0.000000">
+  <info name="PCIVendor" value="PLX Technology, Inc."/>
+  <info name="PCIDevice" value="PEX 8747 48-Lane, 5-Port PCI Express Gen 3 (8.0 GT/s) Switch"/>
+  <info name="PCISlot" value="0-6"/>
+  <object type="Bridge" os_index="536704" name="PLX Technology, Inc. PEX 8747 48-Lane, 5-Port PCI Express Gen 3 (8.0 GT/s) Switch" bridge_type="1-1" depth="3" bridge_pci="0000:[84-84]" pci_busid="0000:83:08.0" pci_type="0604 [10b5:8747] [0000:0000] ca" pci_link_speed="0.000000">
+    <info name="PCIVendor" value="PLX Technology, Inc."/>
+    <info name="PCIDevice" value="PEX 8747 48-Lane, 5-Port PCI Express Gen 3 (8.0 GT/s) Switch"/>
+    <object type="PCIDev" os_index="540672" name="NVIDIA Corporation GK210GL [Tesla K80]" pci_busid="0000:84:00.0" pci_type="0302 [10de:102d] [10de:106c] a1" pci_link_speed="0.000000">
+      <info name="PCIVendor" value="NVIDIA Corporation"/>
+      <info name="PCIDevice" value="GK210GL [Tesla K80]"/>
+      <object type="OSDev" name="card3" osdev_type="1"/>
+      <object type="OSDev" name="renderD130" osdev_type="1"/>
+    </object>
+  </object>
+  <object type="Bridge" os_index="536832" name="PLX Technology, Inc. PEX 8747 48-Lane, 5-Port PCI Express Gen 3 (8.0 GT/s) Switch" bridge_type="1-1" depth="3" bridge_pci="0000:[85-85]" pci_busid="0000:83:10.0" pci_type="0604 [10b5:8747] [0000:0000] ca" pci_link_speed="0.000000">
+    <info name="PCIVendor" value="PLX Technology, Inc."/>
+    <info name="PCIDevice" value="PEX 8747 48-Lane, 5-Port PCI Express Gen 3 (8.0 GT/s) Switch"/>
+    <object type="PCIDev" os_index="544768" name="NVIDIA Corporation GK210GL [Tesla K80]" pci_busid="0000:85:00.0" pci_type="0302 [10de:102d] [10de:106c] a1" pci_link_speed="0.000000">
+      <info name="PCIVendor" value="NVIDIA Corporation"/>
+      <info name="PCIDevice" value="GK210GL [Tesla K80]"/>
+      <object type="OSDev" name="card4" osdev_type="1"/>
+      <object type="OSDev" name="renderD131" osdev_type="1"/>
+    </object>
+  </object>
+</object>
+{% endraw %}
+{% endhighlight xml %}
+
+{% highlight bash %}
+{% raw %}
+$ cat /sys/class/pci_bus/0000\:06/cpuaffinity
+00ff
+
+$ cat /sys/class/pci_bus/0000\:07/cpuaffinity
+00ff
+
+$ cat /sys/class/pci_bus/0000\:84/cpuaffinity
+ff00
+
+$ cat /sys/class/pci_bus/0000\:85/cpuaffinity
+ff00
+
+$ cat /sys/class/pci_bus/0000\:06/device/numa_node
+0
+
+$ cat /sys/class/pci_bus/0000\:07/device/numa_node
+0
+
+$ cat /sys/class/pci_bus/0000\:84/device/numa_node
+1
+
+$ cat /sys/class/pci_bus/0000\:85/device/numa_node
+1
+{% endraw %}
+{% endhighlight bash %}
