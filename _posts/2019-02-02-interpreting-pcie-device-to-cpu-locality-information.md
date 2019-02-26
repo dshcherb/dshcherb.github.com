@@ -159,8 +159,10 @@ cat /sys/class/pci_bus/0000\:18/cpulistaffinity
   * The NVMe device has a bus id equal to 5e: `PCI 1c58:0023 (P#385024 busid=0000:5e:00.0 class=0108(NVMExp) PCIVendor="HGST, Inc.") "HGST, Inc."`;
 * BMC and LoM network interfaces (eno1 and eno2) are attached to CPU1 based on the diagram:
   * `Bridge Host->PCI L#0 (P#0 buses=0000:[00-04])`;
+  * `PCI 8086:1563 (P#4096 busid=0000:01:00.0 class=0200(Ether) PCIVendor="Intel Corporation" PCIDevice="Ethernet Controller 10G X550T") "Intel Corporation Ethernet Controller 10G X550T" Network L#0 (Address=8a:6d:22:f7:f2:87) "eno1"`;
+  * Bus id 01 of eno1 network device fits into the 00-04 bus id range;
   * `PCI 102b:0522 (P#16384 busid=0000:04:00.0 class=0300(VGA) PCIVendor="Matrox Electronics Systems Ltd." PCIDevice="MGA G200e [Pilot] ServerEngines (SEP1)")`;
-  * Bus id 14 of a BMC VGA device fits into that range;
+  * Bus id 04 of a BMC VGA device fits into that range;
 * Based on the block diagram the HBA is attached to CPU1;
   * Which means that `Bridge Host->PCI L#4 (P#1 buses=0000:[17-1a])` is attached to CPU1 as well;
   * Bus id 18 of the HBA fits into that range.
