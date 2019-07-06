@@ -15,9 +15,9 @@ There is a great feature [summary presentation](http://events.linuxfoundation.or
 
 # Issues with FileStore
 
-FileStore with XFS as a default backend has several issues but one of the most pressing ones in my opinion is double-write for all data and metadata that's coming to an OSD. A journal has several modes of operation but it really comes down to a single mode because XFS is the [recommended](https://github.com/ceph/ceph/blame/jewel/doc/rados/configuration/filesystem-recommendations.rst#L35) backend for data storage with FileStore - this mode is called the [writeahead](https://github.com/ceph/ceph/blob/jewel/doc/rados/configuration/filestore-config-ref.rst#journal) mode. The [doc](https://github.com/ceph/ceph/blob/jewel/doc/rados/configuration/filestore-config-ref.rst#journal) is confusing as it says `Default: false` and at the same time `default for xfs` but the code is clear on that part: if there is [no explicit configuration](https://github.com/ceph/ceph/blob/jewel/src/os/filestore/FileStore.cc#L1562-L1564) and a backend [does not support checkpointing](https://github.com/ceph/ceph/blob/jewel/src/os/filestore/FileStore.cc#L1565) a [journal will be set](https://github.com/ceph/ceph/blob/jewel/src/os/filestore/FileStore.cc#L1566) to the writeahead mode. The XFS backend [does not](https://github.com/ceph/ceph/blob/jewel/src/os/filestore/XfsFileStoreBackend.h#L22) override the [default can_checkpoint](https://github.com/ceph/ceph/blob/jewel/src/os/filestore/GenericFileStoreBackend.h#L39) method, therefore, a writeahead journal is enabled by default.
+FileStore with XFS as a default backend has several issues but one of the most pressing ones in my opinion is double-write for all data and metadata that's coming to an OSD. A journal has several modes of operation but it really comes down to a single mode because XFS is the [recommended](https://github.com/ceph/ceph/blame/115560ff830f0bd11db8d0adb66b390924a584f0/doc/rados/configuration/filesystem-recommendations.rst#L35) backend for data storage with FileStore - this mode is called the [writeahead](https://github.com/ceph/ceph/blob/115560ff830f0bd11db8d0adb66b390924a584f0/doc/rados/configuration/filestore-config-ref.rst#journal) mode. The [doc](https://github.com/ceph/ceph/blob/115560ff830f0bd11db8d0adb66b390924a584f0/doc/rados/configuration/filestore-config-ref.rst#journal) is confusing as it says `Default: false` and at the same time `default for xfs` but the code is clear on that part: if there is [no explicit configuration](https://github.com/ceph/ceph/blob/115560ff830f0bd11db8d0adb66b390924a584f0/src/os/filestore/FileStore.cc#L1571-L1574) and a backend [does not support checkpointing](https://github.com/ceph/ceph/blob/115560ff830f0bd11db8d0adb66b390924a584f0/src/os/filestore/FileStore.cc#L1575) a [journal will be set](https://github.com/ceph/ceph/blob/115560ff830f0bd11db8d0adb66b390924a584f0/src/os/filestore/FileStore.cc#L1576) to the writeahead mode. The XFS backend [does not](https://github.com/ceph/ceph/blob/115560ff830f0bd11db8d0adb66b390924a584f0/src/os/filestore/XfsFileStoreBackend.h#L22) override the [default can_checkpoint](https://github.com/ceph/ceph/blob/115560ff830f0bd11db8d0adb66b390924a584f0/src/os/filestore/GenericFileStoreBackend.h#L39) method, therefore, a writeahead journal is enabled by default.
 
-A FileStore journal [may use](https://github.com/ceph/ceph/blob/jewel/src/os/filestore/FileJournal.h#L35) a raw block device or a file.
+A FileStore journal [may use](https://github.com/ceph/ceph/blob/115560ff830f0bd11db8d0adb66b390924a584f0/src/os/filestore/FileJournal.h#L35) a raw block device or a file.
 
 If a block device is used (which may be a partition) there will be:
 
@@ -31,7 +31,7 @@ If a file is used there will be:
 * metadata journaling at the XFS level.
 
 
-Additionally, there are multiple layouts possible and one of them is collocating a journal with data on a single block device with two different partitions. Ceph documentation for Jewel [recommends](https://github.com/ceph/ceph/blame/jewel/doc/start/hardware-recommendations.rst#L105-L106) to use separate devices for a journal and data. And there is a very good reason for that which is illustrated by an example below.
+Additionally, there are multiple layouts possible and one of them is collocating a journal with data on a single block device with two different partitions. Ceph documentation for Jewel [recommends](https://github.com/ceph/ceph/blame/115560ff830f0bd11db8d0adb66b390924a584f0/doc/start/hardware-recommendations.rst#L105-L106) to use separate devices for a journal and data. And there is a very good reason for that which is illustrated by an example below.
 
 In the output below, `/dev/sdb1` is a data partition with an XFS file system and `/dev/sdb2` is a journal partition which is a raw block device.
 
@@ -50,7 +50,7 @@ sda
 {% endraw %}
 {% endhighlight bash %}
 
-If an osd receives some data, it will first be written to the journal partition and then to the data partition. "Some data" is a vague definition: Ceph operates with rados objects which [include](https://github.com/ceph/ceph/blame/jewel/doc/architecture.rst#L66-L70) an identifier, binary data, and metadata. Object storage semantics are [abstracted](https://github.com/ceph/ceph/blob/jewel/src/os/filestore/FileStore.h#L90) from a particular implementation via [ObjectStore](https://github.com/ceph/ceph/blob/jewel/src/os/ObjectStore.h#L225) and [JournalingObjectStore](https://github.com/ceph/ceph/blob/jewel/src/os/filestore/JournalingObjectStore.h#L23).
+If an osd receives some data, it will first be written to the journal partition and then to the data partition. "Some data" is a vague definition: Ceph operates with rados objects which [include](https://github.com/ceph/ceph/blame/115560ff830f0bd11db8d0adb66b390924a584f0/doc/architecture.rst#L66-L70) an identifier, binary data, and metadata. Object storage semantics are [abstracted](https://github.com/ceph/ceph/blob/115560ff830f0bd11db8d0adb66b390924a584f0/src/os/filestore/FileStore.h#L90) from a particular implementation via [ObjectStore](https://github.com/ceph/ceph/blob/115560ff830f0bd11db8d0adb66b390924a584f0/src/os/ObjectStore.h#L225) and [JournalingObjectStore](https://github.com/ceph/ceph/blob/115560ff830f0bd11db8d0adb66b390924a584f0/src/os/filestore/JournalingObjectStore.h#L23).
 
 In other words, the data flow is as follows:
 
@@ -68,7 +68,7 @@ Clearly, there is a **double write problem**. Two obvious recommendations for Fi
 
 # FileStore with bcache
 
-A journal may [speed up small writes by coalescing them and ensure consistency](https://github.com/ceph/ceph/blame/jewel/doc/rados/configuration/journal-ref.rst#L7-L26) but a journal is not a cache and a natural idea is to use a block layer cache. When it comes to using bcache it is very important to remember how FileStore works and avoid the double-write penalty.
+A journal may [speed up small writes by coalescing them and ensure consistency](https://github.com/ceph/ceph/blame/115560ff830f0bd11db8d0adb66b390924a584f0/doc/rados/configuration/journal-ref.rst#L7-L26) but a journal is not a cache and a natural idea is to use a block layer cache. When it comes to using bcache it is very important to remember how FileStore works and avoid the double-write penalty.
 
 With a single fast device in a bcache cache set and multiple slow devices there will be several `/dev/bcache<i>` block devices.
 
